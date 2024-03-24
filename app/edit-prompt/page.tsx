@@ -12,7 +12,7 @@ export interface Post {
   tag: string;
 }
 
-const EditPrompt = () => {
+const EditPromptWithSuspense = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const searchParams = useSearchParams();
@@ -70,14 +70,20 @@ const EditPrompt = () => {
   };
 
   return (
+    <Form
+      type="Edit"
+      post={post}
+      setPost={setPost}
+      submitting={submitting}
+      handleSubmit={editPrompt}
+    />
+  );
+};
+
+const EditPrompt = () => {
+  return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Form
-        type="Edit"
-        post={post}
-        setPost={setPost}
-        submitting={submitting}
-        handleSubmit={editPrompt}
-      />
+      <EditPromptWithSuspense />
     </Suspense>
   );
 };
